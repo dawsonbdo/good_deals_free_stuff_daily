@@ -4,6 +4,7 @@ import smtplib, ssl
 import praw
 import os
 from collections import defaultdict
+from discord_webhook import DiscordWebhook, DiscordEmbed
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -71,32 +72,57 @@ html_body = """\
   </body>
 </html>
 """
-
+#Text for emails
 link = "<li><a href=\"{}\">{}</a></li>"
 deal_text = ""
 gamedeal_text = ""
 freeby_text = ""
 
+#Text for webhooks
+value_text = "[{}]({})"
+
+#Sets up webhooks
+webhook_deals = DiscordWebhook(url=os.environ["DISCORD_WEBHOOK"])
+webhook_gamedeals = DiscordWebhook(url=os.environ["DISCORD_WEBHOOK"])
+webhook_freebies = DiscordWebhook(url=os.environ["DISCORD_WEBHOOK"])
+
+#Sets up embeds for webhooks
+embed_deals = DiscordEmbed(title="Today's top deals from r/deals", color=15844367)
+embed_gamedeals = DiscordEmbed(title="Today's top deals from r/GameDeals", color=15844367)
+embed_freebies = DiscordEmbed(title="Todays top freebies from r/eFreebies", color=15844367)
+
 #Adds deals
+dealCounter = 1
 if len(deals) > 0:
   for title, url in deals.items():
     deal_text += link.format(url,title)
+    embed_deals.add_embed_field(name=dealCounter, value=value_text.format(title,url))
+    dealCounter+=1
 else:
   deal_text += "Nothing here today!"
+  embed_deals.add_embed_field(name="Nothing here today!")
 
 #Adds game deals
+gameDealCounter = 1
 if len(gameDeals) > 0:
   for title, url in gameDeals.items():
     gamedeal_text += link.format(url,title)
+    embed_gamedeals.add_embed_field(name=gameDealCounter, value=value_text.format(title,url))
+    gameDealCounter += 1
 else:
   gamedeal_text += "Nothing here today!"
+  embed_gamedeals.add_embed_field(name="Nothing here today!")
 
 #Adds freebies
+freebieCounter = 1
 if len(freebies) > 0:
   for title, url in freebies.items():
     freeby_text += link.format(url,title)
+    embed_freebies.add_embed_field(name=freebieCounter, value=value_text.format(title,url))
+    freebieCounter+=1
 else:
   freeby_text += "Nothing here today!"
+  embed_freebies.add_embed_field(name="Nothing here today!")
 
 #Attaches deals to the email
 html = html_body.format(deal_text, gamedeal_text, freeby_text)
@@ -106,4 +132,12 @@ message.attach(MIMEText(html, "html"))
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
   server.login(sender_email, sender_password)
-  server.sendmail(sender_email, receiver_emails, message.as_string())
+  #server.sendmail(sender_email, receiver_emails, message.as_string())
+
+webhook_deals.add_embed(embed_deals)
+webhook_gamedeals.add_embed(embed_gamedeals)
+webhook_freebies.add_embed(embed_freebies)
+
+webhook_deals.execute()
+webhook_gamedeals.execute()
+webhook_freebies.execute()
