@@ -132,7 +132,7 @@ message.attach(MIMEText(html, "html"))
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
   server.login(sender_email, sender_password)
-  #server.sendmail(sender_email, receiver_emails, message.as_string())
+  server.sendmail(sender_email, receiver_emails, message.as_string())
 
 #Adds embeds to webhooks
 webhook_deals.add_embed(embed_deals)
