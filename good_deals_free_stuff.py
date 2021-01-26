@@ -134,10 +134,12 @@ with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
   server.login(sender_email, sender_password)
   #server.sendmail(sender_email, receiver_emails, message.as_string())
 
+#Adds embeds to webhooks
 webhook_deals.add_embed(embed_deals)
 webhook_gamedeals.add_embed(embed_gamedeals)
 webhook_freebies.add_embed(embed_freebies)
 
+#Executes webhooks
 webhook_deals.execute()
 webhook_gamedeals.execute()
 webhook_freebies.execute()
