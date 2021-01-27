@@ -153,7 +153,7 @@ message.attach(MIMEText(html, "html"))
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
   server.login(env.EMAIL, env.EMAIL_PASSWORD)
-  #server.sendmail(env.EMAIL, receiver_emails, message.as_string())
+  server.sendmail(env.EMAIL, env.RECEIVER_EMAILS, message.as_string())
 
 #Sets up webhooks
 webhooks = []
