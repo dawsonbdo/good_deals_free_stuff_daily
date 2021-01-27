@@ -1,3 +1,4 @@
 recipient_list.txt
 logs.txt
 environment.py
+__pycache__
