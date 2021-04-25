@@ -40,6 +40,7 @@ if len(deals3070) > 0:
     for k,v in deals3070.items():
         if k not in previous3070:
             newDeals3070[k] = v
+            previous3070[k] = v
 else:
     deals3070 = False
 
@@ -48,6 +49,7 @@ if len(deals3080) > 0:
     for k,v in deals3080.items():
         if k not in previous3080:
             newDeals3080[k] = v
+            previous3080[k] = v
 else:
     deals3080 = False
 
@@ -62,9 +64,9 @@ if deals3070Exist == False and deals3080Exist == False:
 
 # Saves newDeals with pickle
 if deals3070Exist:
-    pickle.dump(newDeals3070, open("previous3070.save", "a+b"))
+    pickle.dump(previous3070, open("previous3070.save", "a+b"))
 if deals3080Exist:
-    pickle.dump(newDeals3080, open("previous3080.save", "a+b"))
+    pickle.dump(previous3080, open("previous3080.save", "a+b"))
 
 # Text for webhook
 value_text = "- [{}](<{}>)\n"
