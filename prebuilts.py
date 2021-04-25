@@ -11,12 +11,12 @@ reddit = praw.Reddit(client_id=env.CLIENT_ID, client_secret=env.CLIENT_SECRET, u
 
 # Gets all previous titles from pickled dictionary
 try:
-    previous3070 = pickle.load(open("previous3070.save", "r+b"))
+    previous3070 = pickle.load(open(env.PREVIOUS3070, "r+b"))
 except:
     previous3070 = {}
 
 try:
-    previous3080 = pickle.load(open("previous3080.save", "r+b"))
+    previous3080 = pickle.load(open(env.PREVIOUS3080, "r+b"))
 except:
     previous3080 = {}
 
@@ -64,9 +64,9 @@ if deals3070Exist == False and deals3080Exist == False:
 
 # Saves newDeals with pickle
 if deals3070Exist:
-    pickle.dump(previous3070, open("previous3070.save", "wb"))
+    pickle.dump(previous3070, open(env.PREVIOUS3070, "wb"))
 if deals3080Exist:
-    pickle.dump(previous3080, open("previous3080.save", "wb"))
+    pickle.dump(previous3080, open(env.PREVIOUS3080, "wb"))
 
 # Text for webhook
 value_text = "- [{}](<{}>)\n"
