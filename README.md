@@ -4,3 +4,5 @@ Sends an email at 7PM PST everyday with links to the top daily posts from r/deal
 Now also added Discord webhook functionality to send an automated message at the same time.
 
 Python script is executed daily via cron on a Raspberry Pi 4.
+
+Additional functionality implemented 4/25/21 to allow for alerts for prebuilt PCs with a 3070/3080 in them. 
