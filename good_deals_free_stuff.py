@@ -107,7 +107,7 @@ if len(gameDeals) > 0:
 else:
   gamedeal_text += "Nothing here today!"
   webhook_gamedeal_text += "Nothing here today!"
-  wgdText[0] = webhook_gamedeal_text
+  wgdText.append(webhook_gamedeal_text)
 
 #Adds freebies
 if len(freebies) > 0:
@@ -123,7 +123,7 @@ if len(freebies) > 0:
 else:
   freeby_text += "Nothing here today!"
   webhook_freebies_text += "Nothing here today!"
-  wfText[0] = webhook_freebies_text
+  wfText.append(webhook_freebies_text)
 
 #Adds pc deals
 pc_counter = 0
@@ -143,7 +143,7 @@ if len(pcDeals) > 0:
 else:
   pcdeal_text += "Nothing here today!"
   webhook_pcdeal_text += "Nothing here today!"
-  wpdText[0] = webhook_pcdeal_text
+  wpdText.append(webhook_pcdeal_text)
 
 #Attaches deals to the email
 html = html_body.format(deal_text, gamedeal_text, freeby_text, pcdeal_text)
