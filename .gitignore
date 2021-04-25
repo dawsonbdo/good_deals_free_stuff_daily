@@ -1,5 +1,6 @@
 recipient_list.txt
 logs.txt
+logsprebuilts.txt
 environment.py
 __pycache__
 previous3070.save
