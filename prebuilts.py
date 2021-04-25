@@ -64,9 +64,9 @@ if deals3070Exist == False and deals3080Exist == False:
 
 # Saves newDeals with pickle
 if deals3070Exist:
-    pickle.dump(previous3070, open("previous3070.save", "a+b"))
+    pickle.dump(previous3070, open("previous3070.save", "wb"))
 if deals3080Exist:
-    pickle.dump(previous3080, open("previous3080.save", "a+b"))
+    pickle.dump(previous3080, open("previous3080.save", "wb"))
 
 # Text for webhook
 value_text = "- [{}](<{}>)\n"
